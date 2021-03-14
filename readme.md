@@ -10,18 +10,19 @@
 
 ## setup
 
-### login to gcp
-```
-gcloud auth login
-gcloud auth application-default login
-```
-
 ### configure current project
 ```
 gcloud config set project your-gcp-project-identifier
 ```
 
 cp settings.tfvars.json.example to settings.tfvars.json and adjust accordingly.
+
+### login to gcp
+```
+gcloud auth login
+gcloud auth application-default login
+gcloud auth configure-docker <your region from settings.tfvars.json>-docker.pkg.dev
+```
 
 ## examples
 
