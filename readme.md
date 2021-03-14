@@ -12,7 +12,7 @@
 
 ### login to gcp
 ```
-gcloud login
+gcloud auth login
 gcloud auth application-default login
 ```
 
