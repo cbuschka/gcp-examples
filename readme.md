@@ -27,7 +27,8 @@ cp settings.tfvars.json.example to settings.tfvars.json and adjust accordingly.
 
 | example          | description |
 |------------------|-------------|
-| [gcs event-to-pubsub](./gcs-event-to-pubsub) | send notification event via eventarc to pubsub topic, when a file is uploaded into a gcs bucket |
+| [gcs event to pubsub](./gcs-event-to-pubsub) | send notification event via eventarc to pubsub topic, when a file is uploaded into a gcs bucket |
+| [pubsub message to cloudrun](./pubsub-to-cloudrun) (ps2cr) | push pubsub messages via subscription to cloudrun with auth enabled |
 
 ## license
 [MIT](./license.txt)
