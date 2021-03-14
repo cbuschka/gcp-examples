@@ -28,9 +28,10 @@ public class MessageHandler
 	{
 		log.info("Received request {}.", objectMapper.writer().writeValueAsString(json));
 
-		if (json.isObject() && json.has("message") && json.get("message").isObject() && json.get("message").has("data") && json.get("message").get("data").isTextual())
+		JsonNode dataNode = json.at("/message/data");
+		if (dataNode.isTextual())
 		{
-			String dataBase64 = json.get("message").get("data").asText();
+			String dataBase64 = dataNode.asText();
 			byte[] dataBytes = Base64.getDecoder().decode(dataBase64);
 			String dataUtf8String = new String(dataBytes, StandardCharsets.UTF_8);
 			log.info("Payload data {}.", dataUtf8String);
