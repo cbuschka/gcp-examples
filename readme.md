@@ -22,7 +22,10 @@ gcloud config set project your-gcp-project-identifier
 **All resources will be created in the current project!**
 
 ## examples
-[gcs event-to-pubsub](./gcs-event-to-pubsub)
+
+| example          | description |
+|------------------|-------------|
+| [gcs event-to-pubsub](./gcs-event-to-pubsub) | send notification event via eventarc to pubsub topic, when a file is uploaded into a gcs bucket |
 
 ## license
 [MIT](./license.txt)
