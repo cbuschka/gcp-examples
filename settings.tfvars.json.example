@@ -1,4 +1,5 @@
 {
   "project": "insert into project here",
-  "prefix": ""
+  "prefix": "",
+  "region": "europe-west3"
 }
