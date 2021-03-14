@@ -1,12 +1,13 @@
-# gcp examples
+# GCP Examples
 
-### gcp, terraform
+### Examples on GCP with terraform and Java
 
 ## prerequisites
 * bash
 * GNU make
-* jq command line tool
 * terraform with version .terraform-version or better tfvm (https://github.com/cbuschka/tfvm)
+* Java 11
+* gcloud sdk 
 
 ## setup
 
