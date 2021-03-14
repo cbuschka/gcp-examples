@@ -3,7 +3,9 @@
 ### gcp, terraform
 
 ## prerequisites
+* bash
 * GNU make
+* jq command line tool
 * terraform with version .terraform-version or better tfvm (https://github.com/cbuschka/tfvm)
 
 ## setup
@@ -19,7 +21,7 @@ gcloud auth application-default login
 gcloud config set project your-gcp-project-identifier
 ```
 
-**All resources will be created in the current project!**
+cp settings.tfvars.json.example to settings.tfvars.json and adjust accordingly.
 
 ## examples
 

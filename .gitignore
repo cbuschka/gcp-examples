@@ -1,3 +1,4 @@
+/settings.tfvars.json
 .terraform/
 .terraform.lock.hcl
 terraform.tfstate

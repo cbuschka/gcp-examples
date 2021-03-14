@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "upload-bucket" {
-  name          = "connis-upload-bucket"
+  name          = "${var.prefix}upload-bucket"
   project = var.project
   location      = "EU"
   force_destroy = true
