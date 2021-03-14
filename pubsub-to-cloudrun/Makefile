@@ -2,7 +2,7 @@ PROJECT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 PROJECT := $(shell jq --raw-output .project ${PROJECT_DIR}/../settings.tfvars.json)
 PREFIX := $(shell jq --raw-output .prefix ${PROJECT_DIR}/../settings.tfvars.json)
 REGION := $(shell jq --raw-output .region ${PROJECT_DIR}/../settings.tfvars.json)
-VERSION := $(shell git describe --no-match --always --dirty)
+VERSION := $(shell git describe --no-match --always --dirty=-dirty-$(shell date +%s))
 
 deploy_resources:
 	@cd ${PROJECT_DIR}/infra/resources && \
@@ -29,4 +29,4 @@ build_service:
 	mvn clean package com.google.cloud.tools:jib-maven-plugin:2.8.0:build -Dimage=${REGION}-docker.pkg.dev/${PROJECT}/${PREFIX}ps2cr-docker-registry/service:${VERSION} -Djib.from.image=gcr.io/distroless/java-debian10
 
 send_message:
-	gcloud pubsub topics publish ${PREFIX}ps2cr-topic --message='{"timestamp":"$(shell date --iso-8601=seconds)"}'
+	gcloud pubsub topics publish ${PREFIX}ps2cr-topic --message='{"timestamp":"$(shell date --iso-8601=seconds)","whoami":"$(shell whoami)"}'
