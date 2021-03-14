@@ -26,7 +26,7 @@ destroy_service:
 
 build_service:
 	@cd ${PROJECT_DIR}/service && \
-	mvn clean package com.google.cloud.tools:jib-maven-plugin:2.8.0:build -Dimage=${REGION}-docker.pkg.dev/${PROJECT}/${PREFIX}ps2cr-docker-registry/service:${VERSION}
+	mvn clean package com.google.cloud.tools:jib-maven-plugin:2.8.0:build -Dimage=${REGION}-docker.pkg.dev/${PROJECT}/${PREFIX}ps2cr-docker-registry/service:${VERSION} -Djib.from.image=gcr.io/distroless/java-debian10
 
 send_message:
 	gcloud pubsub topics publish ${PREFIX}ps2cr-topic --message='{"timestamp":"$(shell date --iso-8601=seconds)"}'
