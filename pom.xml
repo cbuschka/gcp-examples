@@ -21,6 +21,7 @@
     </properties>
     <modules>
         <module>pubsub-to-cloudrun/service</module>
+        <module>glb-to-cloudrun/service</module>
     </modules>
     <build>
         <pluginManagement>

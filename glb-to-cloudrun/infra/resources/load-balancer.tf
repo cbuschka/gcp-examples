@@ -12,6 +12,28 @@ resource "google_compute_global_forwarding_rule" "port80-forwarding_rule" {
   port_range = "80"
 }
 
+locals {
+  backends = {
+    "${var.prefix}glb2cr-service" : ["/service/*", "/service"]
+  }
+}
+
+resource "google_compute_backend_service" "default" {
+  name        = "default-backend-service"
+  project = var.project
+  port_name   = "http"
+  protocol    = "HTTP"
+  timeout_sec = 10
+
+  health_checks = [google_compute_http_health_check.default.id]
+}
+
+data "google_compute_backend_service" "backend-services" {
+  for_each = local.backends
+  project = var.project
+  name     = "${var.prefix}glb2cr-${each.key}"
+}
+
 resource "google_compute_url_map" "default" {
   name            = "url-map"
   default_service = google_compute_backend_service.default.id
@@ -27,20 +49,20 @@ resource "google_compute_url_map" "default" {
     default_service = google_compute_backend_service.default.id
 
     path_rule {
-      paths   = ["/*"]
-      service = google_compute_backend_service.default.id
+      paths = ["/service/*", "/service"]
+      service = "connis-glb2cr-service"
+#data.google_compute_backend_service.backend-services["connis-glb2cr-service"].name
     }
+
+#    dynamic "path_rule" {
+#      for_each = local.backends
+#      content {
+#        paths   = path_rule.value
+#        service = google_compute_backend_service.default.id
+        # service = data.google_compute_backend_service.backend-services[path_rule.key].id
+#      }
+#    }
   }
-}
-
-resource "google_compute_backend_service" "default" {
-  name        = "default-backend-service"
-  project = var.project
-  port_name   = "http"
-  protocol    = "HTTP"
-  timeout_sec = 10
-
-  health_checks = [google_compute_http_health_check.default.id]
 }
 
 resource "google_compute_http_health_check" "default" {
