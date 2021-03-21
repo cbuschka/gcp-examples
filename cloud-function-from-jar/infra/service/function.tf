@@ -11,7 +11,9 @@ resource "google_cloudfunctions_function" "function" {
   project = var.project
   region = var.region
 
-  available_memory_mb = 2048
+  available_memory_mb = 256
+  max_instances = 10
+  timeout = 540
   source_archive_bucket = "${var.prefix}cffj-code-bucket"
   source_archive_object = google_storage_bucket_object.archive.name
   trigger_http = true
