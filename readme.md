@@ -37,6 +37,7 @@ gcloud auth configure-docker <your region from settings.tfvars.json>-docker.pkg.
 | [global load balancer to cloudrun](./glb-to-cloudrun) (glb2cr) | global load balancer on port 80 with path mapping to cloud run |
 | [gcs access with pure http](./pure-http-gcs) | download file from gcs, login via oauth with serviceaccount key, all pure http without gcp sdk |
 | [cloud function from jar](./cloud-function-from-jar) (cffj) | java 11 cloud function deployed as jar, not as source |
+| [standalone-pubsub-consumer](./standalone-pubsub-consumer) (spsc) | a standalone polling pubsub consumer |
 
 ## Useful links
 

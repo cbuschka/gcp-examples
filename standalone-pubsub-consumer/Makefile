@@ -1,0 +1,25 @@
+PROJECT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+PREFIX := $(shell jq --raw-output .prefix ${PROJECT_DIR}/../settings.tfvars.json)
+VERSION := $(shell git describe --no-match --always --dirty=-dirty-$(shell date +%s))
+
+deploy_resources:
+	@cd ${PROJECT_DIR}/infra/resources && \
+	terraform init -upgrade && \
+	terraform apply -auto-approve -var-file="${PROJECT_DIR}/../settings.tfvars.json"
+
+destroy_resources:
+	@cd ${PROJECT_DIR}/infra/resources && \
+	terraform init -upgrade && \
+	terraform destroy -auto-approve -var-file="${PROJECT_DIR}/../settings.tfvars.json"
+
+build_service:
+	@cd ${PROJECT_DIR}/service && \
+	mvn clean package
+
+run_service:	build_service
+	@cd ${PROJECT_DIR}/service && \
+        java -DPollingConsumer.subscription=${PREFIX}spsc-subscription -jar target/service.jar
+
+
+publish_message:
+	gcloud pubsub topics publish ${PREFIX}spsc-topic --message="Hello world from ${USER} at $(shell date)"
