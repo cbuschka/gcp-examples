@@ -1,4 +1,6 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcs;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.gcs;
+
+import com.github.cbuschka.gcp_examples.pure_http_gcp.common.Authorization;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.ByteArrayOutputStream;
@@ -8,23 +10,23 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-public class Gcs
+public class GcsClient
 {
-	public static byte[] getObject(String bucket, String object, String accessToken) throws IOException
+	public static byte[] getObject(String bucket, String object, Authorization authorization) throws IOException
 	{
-		HttpsURLConnection conn = sendGetForObject(bucket, object, accessToken);
+		HttpsURLConnection conn = sendGetForObject(bucket, object, authorization);
 
 		failIfResponseNotOk(conn);
 
 		return readAllBytes(conn);
 	}
 
-	private static HttpsURLConnection sendGetForObject(String bucket, String object, String accessToken) throws IOException
+	private static HttpsURLConnection sendGetForObject(String bucket, String object, Authorization authorization) throws IOException
 	{
 		URL url = new URL(String.format("https://storage.googleapis.com/%s/%s", URLEncoder.encode(bucket, StandardCharsets.UTF_8),
 			URLEncoder.encode(object, StandardCharsets.UTF_8)));
 		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-		conn.setRequestProperty("Authorization", String.format("Bearer %s", accessToken));
+		conn.setRequestProperty("Authorization", String.format("Bearer %s", authorization.getAccessToken()));
 		return conn;
 	}
 

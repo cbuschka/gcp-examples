@@ -1,4 +1,4 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcs;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -10,29 +10,35 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class OauthLogin
 {
-	private static final ObjectMapper objectMapper = new ObjectMapper();
-
-	static
+	public static Authorization getAccessToken(ServiceAccountKey serviceAccountKey) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
-		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		String jwt = JwtBuilder.newInstance()
+			.withEmail(serviceAccountKey.email)
+			.withValidityInSeconds(60)
+			.withAudience("https://www.googleapis.com/oauth2/v4/token")
+			.withScope("https://www.googleapis.com/auth/cloud-platform")
+			.withSigningKey(serviceAccountKey.getPrivateKey())
+			.build();
+		return OauthLogin.getAccessToken(jwt);
 	}
 
-
-	public static String getAccessToken(String jwt) throws IOException
+	private static Authorization getAccessToken(String jwt) throws IOException
 	{
 		HttpURLConnection conn = sendPostForToken(jwt);
 
 		failIfResponseNotOk(conn);
 
-		return extractAccessToken(conn);
+		return new Authorization(extractAccessToken(conn));
 	}
 
 	private static String extractAccessToken(HttpURLConnection conn) throws IOException
 	{
-		GetAccessTokenResponse response = objectMapper.readerFor(GetAccessTokenResponse.class).readValue(conn.getInputStream());
+		GetAccessTokenResponse response = ObjectMapperHolder.objectMapper.readerFor(GetAccessTokenResponse.class).readValue(conn.getInputStream());
 		return response.accessToken;
 	}
 

@@ -1,4 +1,4 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcs;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,8 +29,6 @@ public class JwtBuilder
 			throw new RuntimeException(ex);
 		}
 	}
-
-	private static final ObjectMapper objectMapper = new ObjectMapper();
 
 	private final Jwt jwt;
 	private int validityInSeconds = 60;
@@ -116,7 +114,7 @@ public class JwtBuilder
 		jwt.iat = nowInSecondsEpochTime;
 		jwt.nbf = nowInSecondsEpochTime;
 		jwt.exp = nowInSecondsEpochTime + this.validityInSeconds;
-		String claimsJson = objectMapper.writeValueAsString(jwt);
+		String claimsJson = ObjectMapperHolder.objectMapper.writeValueAsString(jwt);
 		return toBase64WithoutPadding(claimsJson.getBytes(StandardCharsets.UTF_8));
 	}
 

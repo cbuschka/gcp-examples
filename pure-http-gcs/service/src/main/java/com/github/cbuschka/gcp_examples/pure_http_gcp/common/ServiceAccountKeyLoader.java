@@ -1,4 +1,4 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcs;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,14 +8,8 @@ import java.io.IOException;
 
 public class ServiceAccountKeyLoader
 {
-	private static final ObjectMapper objectMapper = new ObjectMapper();
-
-	static {
-		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-	}
-
 	public static ServiceAccountKey loadServiceAccountKey(File serviceAccountKeyFile) throws IOException
 	{
-		return objectMapper.readerFor(ServiceAccountKey.class).readValue(serviceAccountKeyFile);
+		return ObjectMapperHolder.objectMapper.readerFor(ServiceAccountKey.class).readValue(serviceAccountKeyFile);
 	}
 }
