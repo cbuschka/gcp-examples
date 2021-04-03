@@ -1,4 +1,4 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.util;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

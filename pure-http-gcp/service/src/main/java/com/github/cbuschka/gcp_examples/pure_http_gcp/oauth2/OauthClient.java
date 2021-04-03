@@ -1,8 +1,7 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.oauth2;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.cbuschka.gcp_examples.pure_http_gcp.util.ObjectMapperHolder;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-public class OauthLogin
+public class OauthClient
 {
 	public static Authorization getAccessToken(ServiceAccountKey serviceAccountKey) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException
 	{
@@ -24,7 +23,7 @@ public class OauthLogin
 			.withScope("https://www.googleapis.com/auth/cloud-platform")
 			.withSigningKey(serviceAccountKey.getPrivateKey())
 			.build();
-		return OauthLogin.getAccessToken(jwt);
+		return OauthClient.getAccessToken(jwt);
 	}
 
 	private static Authorization getAccessToken(String jwt) throws IOException

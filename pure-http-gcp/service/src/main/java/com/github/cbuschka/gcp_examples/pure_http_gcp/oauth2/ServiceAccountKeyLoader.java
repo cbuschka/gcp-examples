@@ -1,7 +1,6 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.oauth2;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.cbuschka.gcp_examples.pure_http_gcp.util.ObjectMapperHolder;
 
 import java.io.File;
 import java.io.IOException;

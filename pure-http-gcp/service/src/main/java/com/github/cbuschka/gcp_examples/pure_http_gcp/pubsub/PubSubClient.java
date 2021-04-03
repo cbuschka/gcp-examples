@@ -1,8 +1,8 @@
 package com.github.cbuschka.gcp_examples.pure_http_gcp.pubsub;
 
-import com.github.cbuschka.gcp_examples.pure_http_gcp.common.Authorization;
-import com.github.cbuschka.gcp_examples.pure_http_gcp.common.IOUtils;
-import com.github.cbuschka.gcp_examples.pure_http_gcp.common.ObjectMapperHolder;
+import com.github.cbuschka.gcp_examples.pure_http_gcp.oauth2.Authorization;
+import com.github.cbuschka.gcp_examples.pure_http_gcp.util.IOUtils;
+import com.github.cbuschka.gcp_examples.pure_http_gcp.util.ObjectMapperHolder;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;

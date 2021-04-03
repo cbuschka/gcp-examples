@@ -1,4 +1,4 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.oauth2;
 
 public class Authorization
 {

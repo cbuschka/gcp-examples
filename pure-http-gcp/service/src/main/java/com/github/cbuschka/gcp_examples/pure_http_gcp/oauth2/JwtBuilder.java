@@ -1,7 +1,7 @@
-package com.github.cbuschka.gcp_examples.pure_http_gcp.common;
+package com.github.cbuschka.gcp_examples.pure_http_gcp.oauth2;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.cbuschka.gcp_examples.pure_http_gcp.util.ObjectMapperHolder;
 
 import java.io.IOException;
 import java.math.BigInteger;

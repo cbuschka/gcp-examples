@@ -1,6 +1,6 @@
 package com.github.cbuschka.gcp_examples.pure_http_gcp.gcs;
 
-import com.github.cbuschka.gcp_examples.pure_http_gcp.common.Authorization;
+import com.github.cbuschka.gcp_examples.pure_http_gcp.oauth2.Authorization;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.ByteArrayOutputStream;
