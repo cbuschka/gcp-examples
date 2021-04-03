@@ -22,7 +22,7 @@
     <modules>
         <module>pubsub-to-cloudrun/service</module>
         <module>glb-to-cloudrun/service</module>
-        <module>pure-http-gcs/service</module>
+        <module>pure-http-gcp/service</module>
         <module>cloud-function-from-jar/service</module>
         <module>standalone-pubsub-consumer/service</module>
         <module>cloudrun-with-cloudsql/service</module>
