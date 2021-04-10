@@ -35,7 +35,7 @@ gcloud auth configure-docker <your region from settings.tfvars.json>-docker.pkg.
 | [gcs event to pubsub](./gcs-event-to-pubsub) | send notification event via eventarc to pubsub topic, when a file is uploaded into a gcs bucket |
 | [pubsub message to cloudrun](./pubsub-to-cloudrun) (ps2cr) | push pubsub messages via subscription to cloudrun with auth enabled |
 | [global load balancer to cloudrun](./glb-to-cloudrun) (glb2cr) | global load balancer on port 80 with path mapping to cloud run |
-| [gcs access with pure http](./pure-http-gcs) | download file from gcs, login via oauth with serviceaccount key, all pure http without gcp sdk |
+| [gcs and pubsub access via pure http](./pure-http-gcp) | download file from gcs, send/receive pubsub messages, login via oauth with serviceaccount key, all pure http without gcp sdk - just an experiment |
 | [cloud function from jar](./cloud-function-from-jar) (cffj) | java 11 cloud function deployed as jar, not as source |
 | [standalone-pubsub-consumer](./standalone-pubsub-consumer) (spsc) | a standalone polling pubsub consumer |
 
