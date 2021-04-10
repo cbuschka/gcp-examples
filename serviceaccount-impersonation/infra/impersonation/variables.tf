@@ -9,9 +9,7 @@ variable "region" {
   type = string
   default = "europe-west3"
 }
-
 variable "impersonators" {
   type = list(string)
   default = []
 }
-

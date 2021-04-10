@@ -6,4 +6,4 @@ terraform.tfstate.backup
 .project
 .classpath
 .factorypath
-
+/*serviceaccount-key.json

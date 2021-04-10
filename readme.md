@@ -38,6 +38,7 @@ gcloud auth configure-docker <your region from settings.tfvars.json>-docker.pkg.
 | [gcs and pubsub access via pure http](./pure-http-gcp) | download file from gcs, send/receive pubsub messages, login via oauth with serviceaccount key, all pure http without gcp sdk - just an experiment |
 | [cloud function from jar](./cloud-function-from-jar) (cffj) | java 11 cloud function deployed as jar, not as source |
 | [standalone-pubsub-consumer](./standalone-pubsub-consumer) (spsc) | a standalone polling pubsub consumer |
+| [serviceaccount-impersonation](./serviceaccount-impersonation) (saimp) | serviceaccount impersonation via terraform |
 
 ## Useful links
 

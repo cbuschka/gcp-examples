@@ -2,4 +2,5 @@
   "project": "insert into project here",
   "prefix": "",
   "region": "europe-west3"
+  "impersonators": [ "<project>-member@domain.name", "<project>-owner@domain.name" ]
 }

@@ -10,3 +10,8 @@ variable "region" {
   default = "europe-west3"
 }
 
+variable "impersonators" {
+  type = list(string)
+  default = []
+}
+

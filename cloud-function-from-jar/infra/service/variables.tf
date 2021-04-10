@@ -13,3 +13,8 @@ variable "service_version" {
   type = string
 }
 
+variable "impersonators" {
+  type = list(string)
+  default = []
+}
+
