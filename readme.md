@@ -46,4 +46,4 @@ gcloud auth configure-docker <your region from settings.tfvars.json>-docker.pkg.
 
 ## License
 
-[MIT](./license.txt)
+[MIT-0](./license.txt)
