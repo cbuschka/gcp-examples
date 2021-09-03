@@ -32,7 +32,7 @@ public class OauthClient
 
 		failIfResponseNotOk(conn);
 
-		return new Authorization(extractAccessToken(conn));
+		return new Authorization(extractAccessToken(conn), jwt);
 	}
 
 	private static String extractAccessToken(HttpURLConnection conn) throws IOException

@@ -18,13 +18,14 @@ import java.util.List;
 
 public class PubSubClient
 {
-	private static final String ENDPOINT = "https://pubsub.googleapis.com/v1/projects/%s/subscriptions/%s:%s";
+	private static final String SUBSCRIPTIONS_ENDPOINT = "https://pubsub.googleapis.com/v1/projects/%s/subscriptions/%s:%s";
+	private static final String TOPICS_ENDPOINT = "https://pubsub.googleapis.com/v1/projects/%s/topics?pageSize=%d&pageToken=%s";
 
 	public List<AcknowledgableMessage> pull(String projectId, String subscriptionName, int maxMessages, Authorization authorization) throws IOException
 	{
 		PullRequest request = new PullRequest(maxMessages);
 
-		String urlStr = String.format(ENDPOINT, URLEncoder.encode(projectId, StandardCharsets.UTF_8), URLEncoder.encode(subscriptionName, StandardCharsets.UTF_8), "pull");
+		String urlStr = String.format(SUBSCRIPTIONS_ENDPOINT, URLEncoder.encode(projectId, StandardCharsets.UTF_8), URLEncoder.encode(subscriptionName, StandardCharsets.UTF_8), "pull");
 		return post(authorization, request, PullResponse.class, urlStr).receivedMessages;
 	}
 
@@ -32,9 +33,48 @@ public class PubSubClient
 	{
 		AcknowledgeRequest acknowledgeRequest = new AcknowledgeRequest(new HashSet<>(messageIds));
 
-		String url = String.format(ENDPOINT, URLEncoder.encode(projectId, StandardCharsets.UTF_8), URLEncoder.encode(subscriptionName, StandardCharsets.UTF_8), "acknowledge");
+		String url = String.format(SUBSCRIPTIONS_ENDPOINT, URLEncoder.encode(projectId, StandardCharsets.UTF_8), URLEncoder.encode(subscriptionName, StandardCharsets.UTF_8), "acknowledge");
 		post(authorization, acknowledgeRequest, String.class, url);
 	}
+
+	public ListTopicsResponse listTopics(String projectId, int pageSize, String pageToken, Authorization authorization)
+		throws IOException {
+
+		String url = String.format(TOPICS_ENDPOINT, URLEncoder.encode(projectId, StandardCharsets.UTF_8), pageSize, pageToken != null ? pageToken : "");
+		return get(authorization, ListTopicsResponse.class, url);
+	}
+
+	private <T> T get(Authorization authorization, Class<T> responseType, String urlStr) throws IOException
+	{
+		URL url = new URL(urlStr);
+		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+		conn.setAllowUserInteraction(false);
+		conn.setDoOutput(false);
+		conn.setDoInput(true);
+		conn.setInstanceFollowRedirects(false);
+		conn.setRequestMethod("GET");
+		conn.setRequestProperty("Authorization", String.format("Bearer %s", authorization.getAccessToken()));
+		conn.setRequestProperty("Accept", "application/json");
+		conn.setUseCaches(false);
+		conn.connect();
+		failIfResponseNotOk(conn);
+		try (InputStream in = conn.getInputStream();)
+		{
+			if (String.class.equals(responseType))
+			{
+				return (T) IOUtils.readUTF8String(in);
+			}
+			else if (null == responseType || byte[].class.equals(responseType))
+			{
+				return (T) IOUtils.readBytes(in);
+			}
+			else
+			{
+				return ObjectMapperHolder.objectMapper.readerFor(responseType).readValue(in);
+			}
+		}
+	}
+
 
 	private <T> T post(Authorization authorization, Object request, Class<T> responseType, String urlStr) throws IOException
 	{

@@ -4,13 +4,20 @@ public class Authorization
 {
 	private final String accessToken;
 
-	public Authorization(String accessToken)
+	private final String jwt;
+
+	public Authorization(String accessToken, String jwt)
 	{
 		this.accessToken = accessToken;
+		this.jwt = jwt;
 	}
 
 	public String getAccessToken()
 	{
 		return accessToken;
+	}
+
+	public String getJwt() {
+		return jwt;
 	}
 }
