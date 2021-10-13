@@ -39,6 +39,7 @@ gcloud auth configure-docker <your region from settings.tfvars.json>-docker.pkg.
 | [cloud function from jar](./cloud-function-from-jar) (cffj) | java 11 cloud function deployed as jar, not as source |
 | [standalone-pubsub-consumer](./standalone-pubsub-consumer) (spsc) | a standalone polling pubsub consumer |
 | [serviceaccount-impersonation](./serviceaccount-impersonation) (saimp) | serviceaccount impersonation via terraform |
+| [container-on-vm-instance-in-vpc](./container-on-vm-instance-in-vpc) (covm) | gce vm instance in vpc, running docker container with ports bound to host, private ip only, access via iap |
 
 ## Useful links
 
